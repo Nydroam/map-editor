@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+.left{
+  width:calc(100% - 200px);
+}
+.right{
+  width:200px;
+  overflow-y:auto;
+  max-height:100vh;
+}

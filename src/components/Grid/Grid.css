@@ -1,0 +1,5 @@
+.grid-container {
+    padding: 20px;
+    height: calc(100vh - 40px);
+    display: grid;
+  }
