@@ -4,11 +4,11 @@ import './Grid.css';
 class Grid extends React.Component{
 
     renderTiles(){
-        const {colorGrid,charGrid,updateColor,mouseDown, color, char} = this.props;
+        const {fill,colorGrid,charGrid,updateColor,mouseDown, color, char, fillGrid} = this.props;
         let list = [];
         for(let i = 0; i < colorGrid.length; i++){
             for(let j = 0; j < colorGrid[i].length; j++){
-                list.push(<Tile currChar={charGrid[i][j]}char={char}mouseDown={mouseDown} updateColor={updateColor} color={colorGrid[i][j]} newColor={color} row={i} col={j} rows={colorGrid.length}></Tile>);
+                list.push(<Tile fill={fill} fillGrid={fillGrid} currChar={charGrid[i][j]}char={char}mouseDown={mouseDown} updateColor={updateColor} color={colorGrid[i][j]} newColor={color} row={i} col={j} rows={colorGrid.length} cols={colorGrid[0].length}></Tile>);
             }
         }
         return list;

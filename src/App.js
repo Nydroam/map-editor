@@ -24,6 +24,7 @@ class App extends React.Component {
       colorGrid:defaultGrid(4,4,'#ffffff'),
       charGrid:defaultGrid(4,4,'0'),
       mouseDown:false,
+      fill:false,
     };
   }
 
@@ -47,6 +48,31 @@ class App extends React.Component {
     }
   }
 
+  fillGrid = (row,col,value,c,tempColorGrid,tempCharGrid,oldValue) =>{
+    let maxRow = tempColorGrid.length;
+    let maxCol = tempColorGrid[0].length;
+    if(tempColorGrid[row][col]!==oldValue)
+      return;
+    tempColorGrid[row][col] = value;
+    tempCharGrid[row][col] = c;
+    if(row-1 >= 0)
+      this.fillGrid(row-1,col,value,c,tempColorGrid,tempCharGrid,oldValue);
+    if(row+1 < maxRow)
+      this.fillGrid(row+1,col,value,c,tempColorGrid,tempCharGrid,oldValue);
+    if(col-1 >= 0)
+      this.fillGrid(row,col-1,value,c,tempColorGrid,tempCharGrid,oldValue);
+    if(col+1 < maxCol)
+      this.fillGrid(row,col+1,value,c,tempColorGrid,tempCharGrid,oldValue);
+  }
+
+  fillGridFinal = (row,col,value,c,oldValue) =>{
+    const{colorGrid,charGrid} = this.state;
+    let tempColorGrid = colorGrid;
+    let tempCharGrid = charGrid;
+    this.fillGrid(row,col,value,c,tempColorGrid,tempCharGrid,oldValue);
+    this.setState({colorGrid:tempColorGrid,charGrid:tempCharGrid})
+  }
+
   updateColor = (row,col,value,c) => {
     const {colorGrid,charGrid} = this.state;
     let newGrid = colorGrid;
@@ -57,17 +83,18 @@ class App extends React.Component {
   }
 
   mouseDownHandler = (e) =>{
+    console.log("MOUSE DOWN",e.button);
     e.preventDefault();
     const {mouseDown} = this.state;
-    console.log("MOUSE DOWN");
-    if(!mouseDown){
+    
+    if(!mouseDown && e.button===0){
       this.setState({mouseDown:true});
     }
   }
 
-  mouseUpHandler = () =>{
+  mouseUpHandler = (e) =>{
     const {mouseDown} = this.state;
-    if(mouseDown){
+    if(mouseDown && e.button===0){
       console.log("MOUSE UP");
       this.setState({mouseDown:false});
     }
@@ -99,22 +126,29 @@ class App extends React.Component {
     }
     return l;
   }
-
+  toggleFill = ()=>{
+    const {fill} = this.state;
+    this.setState({fill:!fill})
+  }
   render(){
     
     console.log(this.charGridString());
-    const {colorGrid,charGrid,color,mouseDown,char} = this.state;
+    console.log("FILL",this.state.fill);
+    const {colorGrid,charGrid,color,mouseDown,char,fill} = this.state;
     let csvContent = "data:text/csv;charset=utf-8," 
     + charGrid.map(e => e.join(",")).join("\n");
     let data=encodeURI(csvContent);
     return (
     <div className="App" style={{display:'flex'}}>
       <div className="left" onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
-      <Grid mouseDown={mouseDown} colorGrid={colorGrid} updateColor={this.updateColor} charGrid={charGrid} color={color} char={char}></Grid>
+      <Grid fill={fill}mouseDown={mouseDown} colorGrid={colorGrid} fillGrid={this.fillGridFinal} updateColor={this.updateColor} charGrid={charGrid} color={color} char={char}></Grid>
       </div>
       <div className="right">
       <Form update={this.update}></Form>
-      <a href={data} download="grid.csv">Download Grid</a>
+      <input type="checkbox" name="fill" onClick={this.toggleFill}></input><label>Toggle Fill</label>
+      <br></br>
+      <br></br>
+      <a href={data} download="grid.csv">Download Map (csv)</a>
       </div>
     </div>
   );

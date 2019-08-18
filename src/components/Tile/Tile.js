@@ -36,14 +36,27 @@ class Tile extends React.Component{
             updateColor(row,col,newColor,char)
         }
     }
-    handleMouse = ()=>{
-        const{updateColor,row,col,newColor,char} = this.props
-        updateColor(row,col,newColor,char);
+    handleMouse = (e)=>{
+        const{updateColor,row,col,color,newColor,char,fill,fillGrid} = this.props
+        if(e.button===0 && newColor !== color){
+            console.log(fill);
+            if(!fill)
+                updateColor(row,col,newColor,char);
+            else
+                fillGrid(row,col,newColor,char,color);
+        }
+    }
+    fontSize = ()=>{
+        const {rows,cols} = this.props;
+        if( (window.innerWidth - 200) / cols < window.innerHeight/rows)
+            return 75 / cols + "vw";
+        else
+            return 75 / rows + "vh";
     }
     render(){
         return(
             <div onMouseOver={this.handleMouseMove} onMouseDown={this.handleMouse}className='tile' style={{backgroundColor:this.props.color}}>
-                <div className='center' style={{color:invertColor(this.props.color),fontSize:50.0/this.props.rows + "vh"}}>{this.props.currChar}</div>
+                <div className='center' style={{color:invertColor(this.props.color),fontSize:this.fontSize()}}>{this.props.currChar}</div>
             </div>
         )
     }
