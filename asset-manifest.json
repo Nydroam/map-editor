@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/map-editor/static/css/main.33d7c4ef.chunk.css",
-    "main.js": "/map-editor/static/js/main.42f8aa13.chunk.js",
-    "main.js.map": "/map-editor/static/js/main.42f8aa13.chunk.js.map",
+    "main.css": "/map-editor/static/css/main.3d74e927.chunk.css",
+    "main.js": "/map-editor/static/js/main.88326f94.chunk.js",
+    "main.js.map": "/map-editor/static/js/main.88326f94.chunk.js.map",
     "runtime~main.js": "/map-editor/static/js/runtime~main.f9d64fc9.js",
     "runtime~main.js.map": "/map-editor/static/js/runtime~main.f9d64fc9.js.map",
     "static/js/2.2efe3b4d.chunk.js": "/map-editor/static/js/2.2efe3b4d.chunk.js",
     "static/js/2.2efe3b4d.chunk.js.map": "/map-editor/static/js/2.2efe3b4d.chunk.js.map",
     "index.html": "/map-editor/index.html",
-    "precache-manifest.d60264702deffc7c353b21793e1b801a.js": "/map-editor/precache-manifest.d60264702deffc7c353b21793e1b801a.js",
+    "precache-manifest.188820fbde83ecb5221a3d7bebf3849a.js": "/map-editor/precache-manifest.188820fbde83ecb5221a3d7bebf3849a.js",
     "service-worker.js": "/map-editor/service-worker.js",
-    "static/css/main.33d7c4ef.chunk.css.map": "/map-editor/static/css/main.33d7c4ef.chunk.css.map"
+    "static/css/main.3d74e927.chunk.css.map": "/map-editor/static/css/main.3d74e927.chunk.css.map"
   }
 }
